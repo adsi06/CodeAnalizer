@@ -1,7 +1,14 @@
 package com.mx.itam.adsi.codeanalyser;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  *Este es el Test
@@ -9,13 +16,21 @@ import org.apache.log4j.Logger;
  */
 public class CodeReader {
 
-    public static void main(String[] args) {
-
         private final static Logger LOG= Logger.getLogger(CodeReader.class);
-        private CommentAnalysis obj = new CommentAnalysis();
+        private static CommentAnalysis obj = new CommentAnalysis();
+        
+        @BeforeClass
+        public static void beforeClass() {
+            System.out.println("Before Class");
+        }
+
+        @Before
+        public void before() {
+            System.out.println("Before Test Case");
+        }
         
         @Test
-        public void isCorrect(){
+        public static void isCorrect(){
             
             LOG.info("Ejecutando la prueba");
             
@@ -35,10 +50,20 @@ public class CodeReader {
             assertTrue("Cálculo del archivo",calc(fileName,6));
         }
         
-        private boolean calc(File fileName, int res){
-            int calcu=obj.obj.analyzeFile(fileName);
+        private static boolean calc (File fileName, int res) {
+            int calcu=obj.analyzeFile(fileName);
             return calcu==res;
         }
-    }
+
+        @After
+        public void after() {
+            System.out.println("After Test Case");
+        }
+
+        @AfterClass
+        public static void afterClass() {
+            System.out.println("After Class");
+        }
+
     
 }
